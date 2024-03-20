@@ -1,0 +1,46 @@
+.movie-detail-container {
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.back-link {
+    display: block;
+    margin-bottom: 20px;
+    color: blue;
+    cursor: pointer;
+}
+
+.movie-header {
+    display: flex;
+    align-items: start;
+    margin-bottom: 20px;
+}
+
+.movie-cover {
+    width: 150px;
+    margin-right: 20px;
+}
+
+.movie-summary {
+    font-size: 0.95em;
+    color: grey;
+}
+
+.movie-details {
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.detail-item {
+
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.detail-title {
+    font-weight: bold;
+    color: #333;
+}

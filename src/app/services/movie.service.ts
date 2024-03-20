@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, throwError } from 'rxjs';
 import { Movie } from '../models/movie.model';
 import { MovieDetail } from '../models/movie-detail.model';
 
@@ -8,6 +8,8 @@ import { MovieDetail } from '../models/movie-detail.model';
   providedIn: 'root'
 })
 export class MovieService {
+  private movieIdSubject = new BehaviorSubject<string>('');
+  public readonly movieId$ = this.movieIdSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -17,10 +19,14 @@ export class MovieService {
       .pipe(catchError(this.handleError));
   }
 
-  public fetchMovieDetail(id: number) {
+  public fetchMovieDetail(id: string) {
     return this.http
       .get<MovieDetail>(`/movies/${id}`)
       .pipe(catchError(this.handleError));
+  }
+
+  public selectMovieById(id: string) {
+    this.movieIdSubject.next(id)
   }
 
   private handleError(error: HttpErrorResponse) {

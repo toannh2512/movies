@@ -7,7 +7,7 @@ export const routes: Routes = [
         path: 'movies',
         component: MoviesComponent,
         children: [
-            { path: 'detail', loadComponent: () => import('./components/movies/details/details.component').then((m) => m.DetailsComponent) }
+            { path: ':id', loadComponent: () => import('./components/movies/detail/detail.component').then((m) => m.DetailComponent) }
         ],
     },
     { path: '**', redirectTo: 'movies' }

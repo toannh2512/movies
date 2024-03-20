@@ -1,2 +1,36 @@
-<p>detail works!</p>
-<router-outlet></router-outlet>
+<div class="movie-detail-container">
+  <a class="back-link" (click)="goBack()">&#x2190; Back</a>
+  <div class="movie-header">
+    <img class="movie-cover" [src]="movieDetail.poster" alt="Movie Cover" />
+    <div>
+      <h1>{{ movieDetail.title }}</h1>
+      <p class="movie-summary">
+        {{ movieDetail.summary }}
+      </p>
+    </div>
+  </div>
+
+  <div class="movie-details">
+    <h2>Details</h2>
+    <div class="detail-item">
+      <span class="detail-title">Box office</span>
+      <span>{{ movieDetail.title }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-title">Budget</span>
+      <span>{{ movieDetail.budget! | millionCurrency }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-title">Duration</span>
+      <span>{{ movieDetail.duration! | minutesToHours }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-title">Producers</span>
+      <span>{{ movieDetail.producers }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-title">Cinematographers</span>
+      <span>{{ movieDetail.cinematographers }}</span>
+    </div>
+  </div>
+</div>

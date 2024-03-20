@@ -1,14 +1,24 @@
-<table>
-  <tbody>
-    @for (movie of movies; track $index) {
-    <tr>
-      <td>{{ movie.title }}</td>
-      <td>{{ movie.release_date }}</td>
-      <td>{{ movie.budget }}</td>
-      <td>{{ movie.duration }}</td>
-      <td (click)="onShowMovieDetail(movie.id)">Details</td>
-    </tr>
+@if (shouldShowContent) {
+<div class="movie-list-container">
+  <div class="filters">
+    <label for="title">Title</label>
+    <input type="text" [formControl]="titleControl" />
+    <label for="release-year">Release year</label>
+    <input type="number" [formControl]="dateControl" />
+  </div>
+  <ul class="movie-list">
+    @for (movie of filteredMovies; track $index) {
+    <li>
+      <h3>{{ movie.title }}</h3>
+      <p>Release date: {{ movie.release_date }}</p>
+      <p>Budget: {{ movie.budget | millionCurrency }}</p>
+      <p>Duration: {{ movie.duration | minutesToHours }}</p>
+      <button class="details-btn" (click)="onShowMovieDetail(movie.id)">
+        Details
+      </button>
+    </li>
     }
-  </tbody>
-</table>
+  </ul>
+</div>
+}
 <router-outlet></router-outlet>

@@ -217,6 +217,6 @@ const handlers = [
   }),
 ];
 
-setupWorker(...handlers).start()
+setupWorker(...handlers).start({ onUnhandledRequest: 'bypass' })
   .then(() => bootstrapApplication(AppComponent, appConfig))
   .catch((err) => console.error(err));
