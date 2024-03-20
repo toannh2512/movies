@@ -1,0 +1,14 @@
+<table>
+  <tbody>
+    @for (movie of movies; track $index) {
+    <tr>
+      <td>{{ movie.title }}</td>
+      <td>{{ movie.release_date }}</td>
+      <td>{{ movie.budget }}</td>
+      <td>{{ movie.duration }}</td>
+      <td (click)="onShowMovieDetail(movie.id)">Details</td>
+    </tr>
+    }
+  </tbody>
+</table>
+<router-outlet></router-outlet>
