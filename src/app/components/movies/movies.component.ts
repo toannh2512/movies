@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Movie } from '../../models/movie.model';
 import { MovieService } from '../../services/movie.service';
-import { Subject, combineLatest, debounceTime, distinctUntilChanged, filter, map, startWith, takeUntil } from 'rxjs';
+import { Subject, combineLatest, debounceTime, distinctUntilChanged, map, startWith, takeUntil } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MinutesToHoursPipe } from '../../pipes/minutes-to-hours.pipe';
 import { MillionCurrencyPipe } from '../../pipes/million-currency.pipe';
@@ -16,8 +16,8 @@ import { MillionCurrencyPipe } from '../../pipes/million-currency.pipe';
 })
 export class MoviesComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  private movieId: string = '';
   private fullMovies: Movie[] = [];
+  private readonly debounceTime = 300;
 
   protected titleControl = new FormControl('', { nonNullable: true });
   protected dateControl = new FormControl('', { nonNullable: true });
@@ -29,19 +29,15 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      takeUntil(this.destroy$)
-    ).subscribe((event) => {
-      this.shouldShowContent = !event.urlAfterRedirects.includes(`/movies/${this.movieId}`);
-    });
-
+    this.movieService.isShowMoviePage$.pipe(takeUntil(this.destroy$)).subscribe((isShow) => {
+      this.shouldShowContent = isShow;
+    })
     combineLatest([
-      this.titleControl.valueChanges.pipe(debounceTime(300),
+      this.titleControl.valueChanges.pipe(debounceTime(this.debounceTime),
         distinctUntilChanged(),
         startWith(''),
         takeUntil(this.destroy$)),
-      this.dateControl.valueChanges.pipe(debounceTime(300),
+      this.dateControl.valueChanges.pipe(debounceTime(this.debounceTime),
         distinctUntilChanged(),
         startWith(''),
         takeUntil(this.destroy$))
@@ -61,8 +57,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   protected onShowMovieDetail(movieId: string) {
-    this.movieId = movieId;
-    this.movieService.selectMovieById(movieId);
     this.router.navigate([movieId], { relativeTo: this.route });
   }
 

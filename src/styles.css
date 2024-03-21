@@ -2,4 +2,4 @@
 @import "../node_modules/mini.css/dist/mini-dark.min.css";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: black }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgb(156, 111, 111) }

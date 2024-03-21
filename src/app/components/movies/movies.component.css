@@ -1,5 +1,5 @@
 .movie-list-container {
-    max-width: 600px;
+    max-width: 60%;
     margin: auto;
     font-family: Arial, sans-serif;
 }
@@ -50,14 +50,12 @@ h3 {
     background-color: #0056b3;
 }
 
-/* Clear float */
 .movie-list li::after {
     content: "";
     display: table;
     clear: both;
 }
 
-/* Responsive styling */
 @media (max-width: 768px) {
     .filters input {
         flex: 1;

@@ -1,12 +1,11 @@
 <div class="movie-detail-container">
   <a class="back-link" (click)="goBack()">&#x2190; Back</a>
+  <h1>{{ movieDetail.title }}</h1>
   <div class="movie-header">
     <img class="movie-cover" [src]="movieDetail.poster" alt="Movie Cover" />
     <div>
-      <h1>{{ movieDetail.title }}</h1>
-      <p class="movie-summary">
-        {{ movieDetail.summary }}
-      </p>
+      <p class="summary">Summary:</p>
+      <p class="movie-summary">{{ movieDetail.summary }}</p>
     </div>
   </div>
 
@@ -14,7 +13,7 @@
     <h2>Details</h2>
     <div class="detail-item">
       <span class="detail-title">Box office</span>
-      <span>{{ movieDetail.title }}</span>
+      <span>{{ movieDetail.box_office! | millionCurrency }}</span>
     </div>
     <div class="detail-item">
       <span class="detail-title">Budget</span>

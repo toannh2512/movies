@@ -19,13 +19,16 @@ export class DetailComponent implements OnDestroy {
   protected movieDetail: Partial<MovieDetail> = {};
 
   constructor(private movieService: MovieService, private router: Router, private route: ActivatedRoute) {
-    this.onFetchMovieDetail();
+    setTimeout(() => {
+      this.movieService.onShowMoviePage(false);
+      this.onFetchMovieDetail();
+    }, 0);
   }
 
   private onFetchMovieDetail() {
-    this.movieService.movieId$.pipe(
+    this.route.paramMap.pipe(
       takeUntil(this.destroy$),
-      switchMap(id => this.movieService.fetchMovieDetail(id))
+      switchMap(params => this.movieService.fetchMovieDetail(params.get('id')!))
     ).subscribe({
       next: movieDetail => {
         this.movieDetail = movieDetail;
@@ -41,6 +44,7 @@ export class DetailComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.movieService.onShowMoviePage(true);
     this.destroy$.next();
     this.destroy$.unsubscribe();
   }

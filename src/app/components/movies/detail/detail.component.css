@@ -18,17 +18,17 @@
 }
 
 .movie-cover {
-    width: 150px;
+    width: 300px;
     margin-right: 20px;
 }
 
 .movie-summary {
     font-size: 0.95em;
-    color: grey;
+    color: rgb(53, 77, 111);
 }
 
 .movie-details {
-    background-color: #f2f2f2;
+    background-color: #b84444;
     padding: 20px;
 }
 

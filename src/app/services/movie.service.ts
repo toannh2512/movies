@@ -4,12 +4,13 @@ import { BehaviorSubject, catchError, throwError } from 'rxjs';
 import { Movie } from '../models/movie.model';
 import { MovieDetail } from '../models/movie-detail.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-  private movieIdSubject = new BehaviorSubject<string>('');
-  public readonly movieId$ = this.movieIdSubject.asObservable();
+  private isShowMoviePageSubject = new BehaviorSubject<boolean>(true);
+  public readonly isShowMoviePage$ = this.isShowMoviePageSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -25,8 +26,8 @@ export class MovieService {
       .pipe(catchError(this.handleError));
   }
 
-  public selectMovieById(id: string) {
-    this.movieIdSubject.next(id)
+  public onShowMoviePage(isShow: boolean) {
+    this.isShowMoviePageSubject.next(isShow);
   }
 
   private handleError(error: HttpErrorResponse) {
